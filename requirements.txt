@@ -18,6 +18,7 @@ requests==2.22.0
 six==1.12.0
 tzlocal==2.0.0
 update-checker==0.16
+urbandictionary==1.1
 urllib3==1.25.3
 websocket-client==0.56.0
 Werkzeug==0.15.4
