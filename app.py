@@ -3,27 +3,7 @@ import os
 from secrets import *
 import praw
 
-import urllib, json
-
-_URBANDICT_URL = "http://api.urbandictionary.com/v0/define?term="
-
-def _run_urbandict(search):
-    safe_search = ""
-    words = ' '.join(search.split()).split(' ')
-    for idx, word in enumerate(words):
-        if len(words) == idx+1:
-            safe_search += "%s" % urllib.parse.quote_plus(word)
-        else:
-            safe_search += "%s+" % urllib.parse.quote_plus(word)
-    with urllib.request.urlopen("http://www.python.org") as url:
-        print(url.read())
-        # Need to parse html for div meaning and example
-        # may need to parse all responses to find most upvoted
-        # filters: top-response, most-upvotes, best-vote-ratio
-        #return json.loads(url.read())
-
-def urbandict(word):
-    return _run_urbandict(word)
+from urbandict import define
 
 app = Flask(__name__)
 
@@ -44,8 +24,9 @@ def p():
 
 @app.route('/urban')
 def u():
-    print( urbandict('netflix') )
-    return "Urban Dict Testing endpoint"
+    title, meaning, example = define('yeet')
+    print( title, meaning, example)
+    return title + " " + meaning + " " + example
 
 if __name__ == '__main__':
     app.run()
