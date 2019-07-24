@@ -8,6 +8,10 @@ from urbandict import define
 
 app = Flask(__name__)
 
+reddit = praw.Reddit( user_agent=reddit_user_agent, client_id=reddit_client_id, client_secret=reddit_secret,
+                            username=reddit_username, password=reddit_password )
+print( reddit.read_only )
+
 @app.route('/')
 def index():
     """Return homepage."""
@@ -15,13 +19,21 @@ def index():
 
 @app.route('/praw')
 def p():
-    reddit = praw.Reddit( user_agent=reddit_user_agent, client_id=reddit_client_id, client_secret=reddit_secret,
-                            username=reddit_username, password=reddit_password )
-    print( reddit.read_only )
-    # print( reddit.user.me() )
-    sub = reddit.subreddit('all')
-    print(sub.top())
-    return "PRAW Testing endpoint"
+    subr = request.args.get('sub')
+
+    if subr == None:
+        # TODO: Need secret key
+        flash('Specify subreddit with /urban?sub=...')
+
+    sub = reddit.subreddit(subr)
+    top = sub.top() 
+
+    top_posts = []
+
+    for t in top:
+        top_posts.append(t.selftext)
+
+    return " ".join( top_posts )
 
 @app.route('/urban')
 def u():
