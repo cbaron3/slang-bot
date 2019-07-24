@@ -2,6 +2,7 @@ from flask import Flask
 import os
 from secrets import *
 import praw
+from flask import request, flash
 
 from urbandict import define
 
@@ -24,7 +25,13 @@ def p():
 
 @app.route('/urban')
 def u():
-    title, meaning, example = define('yeet')
+    term = request.args.get('term')
+
+    if term == None:
+        # TODO: Need secret key
+        flash('Specify term with /urban?term=...')
+
+    title, meaning, example = define(term)
     print( title, meaning, example)
     return title + " " + meaning + " " + example
 
