@@ -11,11 +11,14 @@ idna==2.8
 itsdangerous==1.1.0
 Jinja2==2.10.1
 MarkupSafe==1.1.1
+pkg-resources==0.0.0
 praw==6.3.1
 prawcore==1.0.1
 python-dateutil==2.8.0
 pytz==2019.1
+redis==3.2.1
 requests==2.22.0
+rq==1.1.0
 six==1.12.0
 soupsieve==1.9.2
 tzlocal==2.0.0
