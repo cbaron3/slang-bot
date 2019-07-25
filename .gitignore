@@ -108,4 +108,4 @@ venv.bak/
 .vscode/
 
 #secrets
-secrets.py
+api_secret.py

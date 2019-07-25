@@ -3,7 +3,7 @@ import time
 from secrets import *
 from rq import get_current_job
 
-def bot_invoke():
+def bot_invoke( t ):
     reddit = praw.Reddit( user_agent=reddit_user_agent, client_id=reddit_client_id, client_secret=reddit_secret,
                             username=reddit_username, password=reddit_password )
 
