@@ -12,6 +12,13 @@ from urbandict import define
 
 app = Flask(__name__)
 
+reddit_user_agent = reddit_user_agent or os.environ.get('REDDIT_USER_AGENT')
+reddit_client_id = reddit_client_id or os.environ.get('REDDIT_CLIENT_ID')
+reddit_secret = reddit_secret or os.environ.get('REDDIT_SECRET')
+reddit_username = reddit_username or os.environ.get('REDDIT_USERNAME')
+reddit_password = reddit_password or os.environ.get('REDDIT_PASSWORD')
+
+
 reddit = praw.Reddit( user_agent=reddit_user_agent, client_id=reddit_client_id, client_secret=reddit_secret,
                             username=reddit_username, password=reddit_password )
 
