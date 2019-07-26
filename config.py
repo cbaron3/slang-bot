@@ -7,10 +7,10 @@ class Config(object):
     # Reddit api secrets
     if 'HEROKU' in os.environ:
         REDDIT_USER_AGENT = os.environ.get('REDDIT_USER_AGENT')
-        REDDIT_CLIENT_ID = ''
-        REDDIT_SECRET = ''
-        REDDIT_USERNAME = ''
-        REDDIT_PASSWORD = ''
+        REDDIT_CLIENT_ID = os.environ.get('REDDIT_CLIENT_ID')
+        REDDIT_SECRET = os.environ.get('REDDIT_SECRET')
+        REDDIT_USERNAME = os.environ.get('REDDIT_USERNAME')
+        REDDIT_PASSWORD = os.environ.get('REDDIT_PASSWORD')
     else:
         REDDIT_USER_AGENT = reddit_user_agent
         REDDIT_CLIENT_ID = reddit_client_id
