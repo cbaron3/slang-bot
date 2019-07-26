@@ -1,2 +1,2 @@
-web: gunicorn app:app
+web: gunicorn slangbot:app
 worker: rq worker -u $REDIS_URL reddit-tasks
