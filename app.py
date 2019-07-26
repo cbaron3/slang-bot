@@ -15,7 +15,7 @@ import rq
 from rq import get_current_job
 
 from urbandict import define
-from api_secret import *
+
 
 if 'HEROKU' in os.environ:
     reddit_user_agent = os.environ.get('REDDIT_USER_AGENT')
@@ -23,6 +23,8 @@ if 'HEROKU' in os.environ:
     reddit_secret = os.environ.get('REDDIT_SECRET')
     reddit_username = os.environ.get('REDDIT_USERNAME')
     reddit_password = os.environ.get('REDDIT_PASSWORD')
+else:
+    from api_secret import *
 
 
 START_TIME = datetime.datetime.now(tz=pytz.utc).timestamp() 
