@@ -50,10 +50,11 @@ def poll_reddit( sub_list, config ):
                 
                 # Only reply if term is a non-empty string and the comment was created after the bot started running
                 if term != '' and comment.created_utc > START_TIME:
-                        # IMPROVE: Format the prints better
-                        # TODO: Fix define function call. Causes an error that is blocked right now by try/except
-                        title, meaning, example = define(term) 
-                        print( title, meaning, example)
+                    # IMPROVE: Format the prints better
+                    # TODO: Fix define function call. Causes an error that is blocked right now by try/except
+                    title, meaning, example = define(term) 
+                    print( title, meaning, example)
+                    
                     try:
                         comment.reply( "Slang Bot defines " + title + " as : \n" + meaning )
                     except Exception as e:
