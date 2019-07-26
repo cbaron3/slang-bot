@@ -3,7 +3,7 @@ import praw
 import datetime
 import pytz
 
-from scraper.urbandict import define
+from app.scraper.urbandict import define
 
 class PRAWConfig:
     def __init__(self, user_agent, client_id, secret, username, password):
