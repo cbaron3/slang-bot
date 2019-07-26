@@ -2,6 +2,7 @@ import time
 import praw
 import datetime
 import pytz
+import sys
 
 from app.scraper.urbandict import define
 
@@ -49,14 +50,16 @@ def poll_reddit( sub_list, config ):
                 
                 # Only reply if term is a non-empty string and the comment was created after the bot started running
                 if term != '' and comment.created_utc > START_TIME:
-                    try:
                         # IMPROVE: Format the prints better
                         # TODO: Fix define function call. Causes an error that is blocked right now by try/except
                         title, meaning, example = define(term) 
                         print( title, meaning, example)
+                    try:
                         comment.reply( "Slang Bot defines " + title + " as : \n" + meaning )
-                    except:
-                        print('To frequent')
+                    except Exception as e:
+                        exc_type, exc_obj, exc_tb = sys.exc_info()
+                        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+                        print(exc_type, fname, exc_tb.tb_lineno)
         time.sleep(1)
 
 if __name__ == "__main__":
