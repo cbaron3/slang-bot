@@ -3,6 +3,8 @@ import praw
 import datetime
 import pytz
 
+from scraper.urbandict import define
+
 class PRAWConfig:
     def __init__(self, user_agent, client_id, secret, username, password):
       self.user_agent = user_agent
@@ -49,6 +51,7 @@ def poll_reddit( sub_list, config ):
                 if term != '' and comment.created_utc > START_TIME:
                     try:
                         # IMPROVE: Format the prints better
+                        # TODO: Fix define function call. Causes an error that is blocked right now by try/except
                         title, meaning, example = define(term) 
                         print( title, meaning, example)
                         comment.reply( "Slang Bot defines " + title + " as : \n" + meaning )
@@ -57,4 +60,5 @@ def poll_reddit( sub_list, config ):
         time.sleep(1)
 
 if __name__ == "__main__":
-    poll_reddit(['str'])
+    title, meaning, example = define('yeet') 
+    print( title, meaning, example )
