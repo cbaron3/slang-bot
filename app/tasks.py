@@ -3,6 +3,9 @@ import praw
 import datetime
 import pytz
 import sys
+from app import db
+from flask import jsonify
+from app.models import Request
 
 from app.scraper.urbandict import define
 
@@ -57,6 +60,20 @@ def poll_reddit( sub_list, config ):
                     
                     try:
                         comment.reply( "Slang Bot defines " + title + " as : \n" + meaning )
+                        req = Request(
+                            user=comment.author,
+                            created_time="Now",
+                            received_time="Later",
+                            subreddit="r",
+                            url="urltest",
+                            word="word",
+                            meaning="asdf",
+                            example="rly"
+                        )
+
+                        db.session.add(req)
+                        db.session.commit()
+                        print("Request added. req id={}".format(req.id))
                     except Exception as e:
                         exc_type, exc_obj, exc_tb = sys.exc_info()
                         fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
