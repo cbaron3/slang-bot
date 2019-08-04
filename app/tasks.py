@@ -61,7 +61,7 @@ def poll_reddit( sub_list, config ):
                     try:
                         comment.reply( "Slang Bot defines " + title + " as : \n" + meaning )
                         req = Request(
-                            user=comment.author,
+                            user=comment.author.name,
                             created_time="Now",
                             received_time="Later",
                             subreddit="r",
