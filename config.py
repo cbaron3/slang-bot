@@ -1,5 +1,7 @@
 import os 
 
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 if 'HEROKU' not in os.environ:
     from api_secret import *
 
@@ -19,3 +21,6 @@ class Config(object):
         REDDIT_PASSWORD = reddit_password
     # Redis url
     REDIS_URL = os.environ.get('REDIS_URL') or 'redis://'
+    # For database work
+    SECRET_KEY = 'this-really-needs-to-be-changed'
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
