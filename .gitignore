@@ -109,3 +109,6 @@ venv.bak/
 
 #secrets
 api_secret.py
+
+
+node_modules/
