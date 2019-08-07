@@ -3,10 +3,14 @@ from flask_sqlalchemy import SQLAlchemy
 from config import Config
 from redis import Redis
 import rq
+from flask_cors import CORS
 
 # Flask instance
 app = Flask(__name__)
 app.config.from_object(Config)
+
+# CORS for Vue routing
+CORS(app, resources={r'/*': {'origins': '*'}})
 
 # Redis
 app.redis = Redis.from_url( app.config['REDIS_URL'])
