@@ -26,14 +26,14 @@
           <tbody>
             <tr>
               <tr v-for="(book, index) in books" :key="index">
-              <td>{{ book.user }}</td>
-              <td>{{ book.subreddit }}</td>
-              <td>{{ book.created_time }}</td>
-              <td>{{ book.received_time }}</td>
-              <td>{{ book.url }}</td>
-              <td>{{ book.word }}</td>
-              <td>{{ book.meaning }}</td>
-              <td>{{ book.example }}</td>
+                <td>{{ book.user }}</td>
+                <td>{{ book.subreddit }}</td>
+                <td>{{ book.created_time }}</td>
+                <td>{{ book.received_time }}</td>
+                <td>{{ book.url }}</td>
+                <td>{{ book.word }}</td>
+                <td>{{ book.meaning }}</td>
+                <td>{{ book.example }}</td>
             </tr>
           </tbody>
         </table>
