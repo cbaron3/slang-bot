@@ -1,53 +1,31 @@
-# App module
 from app import app, db
-from app.tasks import PRAWConfig, poll_reddit
-from app.models import Request
 from flask import jsonify
+from app.tasks import PRAWConfig, poll_reddit
+from flask import current_app, send_file
+import os
+from app.models import Request
+from app.scraper.urbandict import define
+
+@app.route('/')
+def index_client():
+    dist_dir = current_app.config['DIST_DIR']
+    entry = os.path.join(dist_dir, 'index.html')
+    return send_file(entry)
 
 praw_config = PRAWConfig( user_agent=app.config['REDDIT_USER_AGENT'], 
                             client_id=app.config['REDDIT_CLIENT_ID'], 
                             secret=app.config['REDDIT_SECRET'],
                             username=app.config['REDDIT_USERNAME'],
                             password=app.config['REDDIT_PASSWORD'], )
-
-@app.route('/', methods=['GET'])
-def index():
-    # Enqueue reddit worker
+                            
+@app.route('/test')
+def f():
     if app.task_queue.count == 0:
         job = app.task_queue.enqueue(f=poll_reddit, args=(['testingground4bots'],praw_config), job_timeout=-1)
     else:
         print('Background task already running')
-    
-    # try:
-    #     requests=Request.query.all()
-    #     print( jsonify([e.serialize() for e in requests]) )
-    # except Exception as e:
-	#     print(str(e))
 
-    # # Check for ui updates
-    # # Publish ui for any new requests
-    # jsonify([e.serialize() for e in requests])
-    BOOKS = [
-        {
-            'title': 'On the Road',
-            'author': 'Jack Kerouac',
-            'read': True
-        },
-        {
-            'title': 'Harry Potter and the Philosopher\'s Stone',
-            'author': 'J. K. Rowling',
-            'read': False
-        },
-        {
-            'title': 'Green Eggs and Ham',
-            'author': 'Dr. Seuss',
-            'read': True
-        }
-    ]
-    return jsonify({
-        'status': 'success',
-        'books': BOOKS
-    })
+    return "test"
 
 # route to test db
 @app.route('/db')
@@ -79,7 +57,33 @@ def get_all():
     except Exception as e:
 	    return(str(e))
 
-# sanity check route
-@app.route('/ping', methods=['GET'])
-def ping_pong():
-    return jsonify('pong!')
+@app.route("/table", methods=['GET'])
+def table():
+    BOOKS = [
+        {
+            'title': 'On the Road',
+            'author': 'Jack Kerouac',
+            'read': True
+        },
+        {
+            'title': 'Harry Potter and the Philosopher\'s Stone',
+            'author': 'J. K. Rowling',
+            'read': False
+        },
+        {
+            'title': 'Green Eggs and Ham',
+            'author': 'Dr. Seuss',
+            'read': True
+        }
+    ]
+    try:
+        requests=Request.query.all()
+        results = []
+        for e in requests:
+            results.append(e.serialize())
+        return jsonify({
+            'status': 'success',
+            'books': results
+        })
+    except Exception as e:
+	    return(str(e))

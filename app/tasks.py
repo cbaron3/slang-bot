@@ -3,11 +3,14 @@ import praw
 import datetime
 import pytz
 import sys
-from app import db
+
 from flask import jsonify
+
+from app import db
 from app.models import Request
 
-from app.scraper.urbandict import define
+from app.scraper.urbandict import define 
+
 
 class PRAWConfig:
     def __init__(self, user_agent, client_id, secret, username, password):
@@ -75,11 +78,9 @@ def poll_reddit( sub_list, config ):
                         db.session.commit()
                         print("Request added. req id={}".format(req.id))
                     except Exception as e:
-                        exc_type, exc_obj, exc_tb = sys.exc_info()
-                        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-                        print(exc_type, fname, exc_tb.tb_lineno)
-        time.sleep(1)
-
-if __name__ == "__main__":
-    title, meaning, example = define('yeet') 
-    print( title, meaning, example )
+                        print('as')
+                        # exc_type, exc_obj, exc_tb = sys.exc_info()
+                        # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+                        # print(exc_type, fname, exc_tb.tb_lineno)
+            print('Polling')
+            time.sleep(1)
