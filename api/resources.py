@@ -11,6 +11,7 @@ from .security import require_auth
 from . import api_rest
 
 
+
 class SecureResource(Resource):
     """ Calls require_auth decorator on all requests """
     method_decorators = [require_auth]
@@ -26,7 +27,7 @@ class ResourceOne(Resource):
 
     def post(self, resource_id):
         json_payload = request.json
-        return {'timestamp': json_payload}, 201
+        return {'timestampapi_rest': json_payload}, 201
 
 
 @api_rest.route('/secure-resource/<string:resource_id>')
@@ -34,5 +35,23 @@ class SecureResourceOne(SecureResource):
     """ Unsecure Resource Class: Inherit from Resource """
 
     def get(self, resource_id):
+        print('aa')
         timestamp = datetime.utcnow().isoformat()
         return {'timestamp': timestamp}
+
+@api_rest.route('/tabletest/<string:resource_id>')
+class Test(Resource):
+    print('aa')
+    def get(self, resource_id):
+        try:
+            requests=Request.query.all()
+            results = []
+            for e in requests:
+                results.append(e.serialize())
+            return jsonify({
+                'status': 'success',
+                'books': results
+            })
+        except Exception as e:
+            print('a')
+            return(str(e))

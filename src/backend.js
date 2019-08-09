@@ -31,5 +31,10 @@ export default {
   fetchSecureResource () {
     return $axios.get(`secure-resource/zzz`)
       .then(response => response.data)
+  },
+
+  fetchTableData () {
+    return $axios.get(`tabletest/zzz`)
+      .then(response => response.data)
   }
 }

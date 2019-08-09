@@ -25,7 +25,7 @@
           </thead>
           <tbody>
             <tr>
-              <tr v-for="(book, index) in books" :key="index">
+              <tr v-for="(book, index) in resources" :key="index">
                 <td>{{ book.user }}</td>
                 <td>{{ book.subreddit }}</td>
                 <td>{{ book.created_time }}</td>
@@ -43,29 +43,33 @@
 </template>
 
 <script>
-import axios from 'axios'
+
+import $backend from '../backend'
 
 export default {
+  name: 'TableTest',
   data () {
     return {
-      books: []
+      resources: [],
+      error: ''
     }
   },
   methods: {
-    getBooks () {
-      const path = 'http://localhost:5000/table'
-      axios.get(path)
-        .then((res) => {
-          this.books = res.data.books
-        })
-        .catch((error) => {
-          // eslint-disable-next-line
-          console.error(error);
+    fetchTableTest () {
+      $backend.fetchTableData()
+        .then(responseData => {
+          console.log(responseData)
+          this.resources = responseData.books
+          console.log('hes')
+          console.log(this.resources)
+        }).catch(error => {
+          this.error = error.message
+          console.log(this.error)
         })
     }
   },
   created () {
-    this.getBooks()
+    this.fetchTableTest()
   }
 }
 </script>
