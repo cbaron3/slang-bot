@@ -67,9 +67,9 @@ def poll_reddit( sub_list, config ):
                             user=comment.author.name,
                             created_time="Now",
                             received_time="Later",
-                            subreddit="r",
-                            url="urltest",
-                            word="word",
+                            subreddit=comment.subreddit.name,
+                            url=comment.submission.url,
+                            word=title,
                             meaning="asdf",
                             example="rly"
                         )

@@ -2,25 +2,23 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-10">
-        <h1>Books</h1>
+        <h1>Slang Bot</h1>
+        <br>
         <hr>
         <br>
         <div class="intro">
             <p>Subreddit bot</p>
         </div>
         <br>
-        <table class="table table-hover">
+        <hr>
+        <br>
+        <table class="table table-hover table-borderless">
           <thead>
             <tr>
               <th scope="col">User</th>
               <th scope="col">Subreddit</th>
-              <th scope="col">Created</th>
-              <th scope="col">Received</th>
-              <th scope="col">URL</th>
               <th scope="col">Word</th>
-              <th scope="col">Meaning</th>
-              <th scope="col">Example</th>
-              <th></th>
+              <th scope="col">URL</th>
             </tr>
           </thead>
           <tbody>
@@ -28,12 +26,8 @@
               <tr v-for="(book, index) in resources" :key="index">
                 <td>{{ book.user }}</td>
                 <td>{{ book.subreddit }}</td>
-                <td>{{ book.created_time }}</td>
-                <td>{{ book.received_time }}</td>
-                <td>{{ book.url }}</td>
                 <td>{{ book.word }}</td>
-                <td>{{ book.meaning }}</td>
-                <td>{{ book.example }}</td>
+                <td>{{ book.url }}</td>
             </tr>
           </tbody>
         </table>
@@ -73,3 +67,34 @@ export default {
   }
 }
 </script>
+
+<style>
+body {
+background: #E0EAFC;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #CFDEF3, #E0EAFC);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #CFDEF3, #E0EAFC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+h1, p, th, td, hd {
+  color: #0074D9;
+  font-family: 'Muli', sans-serif;
+}
+
+th, td {
+  text-align: center;
+}
+
+h1 {
+  padding-top: 25px;
+  font-weight: 700;
+  font-size: 4em;
+}
+
+p {
+  padding-top: 25px;
+  font-weight: 500;
+  font-size: 1em;
+}
+
+</style>
