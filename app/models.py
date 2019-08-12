@@ -12,24 +12,16 @@ class Request(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     # Columns for the table. Gunna store everything as strings for simplicity
     user = db.Column(db.String())
-    created_time = db.Column(db.String())
-    received_time = db.Column(db.String())
     subreddit = db.Column(db.String())
     url = db.Column(db.String())
     # Urban dictionary stuff
     word = db.Column(db.String())
-    meaning = db.Column(db.String())
-    example = db.Column(db.String())
 
-    def __init__(self, user, created_time, received_time, subreddit, url, word, meaning, example):
+    def __init__(self, user,subreddit, word, url):
         self.user = user
-        self.created_time = created_time
-        self.received_time = received_time
         self.subreddit = subreddit
-        self.url = url
         self.word = word
-        self.meaning = meaning
-        self.example = example
+        self.url = url
 
     def __repr__(self):
         return '<id> {}'.format(self.id)
@@ -37,13 +29,9 @@ class Request(db.Model):
     def serialize(self):
         return { 
             'user': self.user,
-            'created_time': self.created_time,
-            'received_time': self.received_time,
             'subreddit': self.subreddit,
-            'url': self.url,
             'word': self.word,
-            'meaning': self.meaning,
-            'example': self.example
+            'url': self.url
         }
 
     @api_rest.route('/tabletest/<string:resource_id>')
@@ -54,7 +42,6 @@ class Request(db.Model):
                 results = []
                 for e in requests:
                     results.append(e.serialize())
-                print(results)
                 return jsonify({
                     'status': 'success',
                     'books': results

@@ -27,7 +27,7 @@
                 <td>{{ book.user }}</td>
                 <td>{{ book.subreddit }}</td>
                 <td>{{ book.word }}</td>
-                <td>{{ book.url }}</td>
+                <td><a v-bind:href="''">{{ book.url }}</a></td>
             </tr>
           </tbody>
         </table>

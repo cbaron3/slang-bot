@@ -6,18 +6,27 @@ import os
 from app.models import Request
 from app.scraper.urbandict import define
 
-@app.route('/')
-def index_client():
-    dist_dir = current_app.config['DIST_DIR']
-    entry = os.path.join(dist_dir, 'index.html')
-    return send_file(entry)
-
 praw_config = PRAWConfig( user_agent=app.config['REDDIT_USER_AGENT'], 
                             client_id=app.config['REDDIT_CLIENT_ID'], 
                             secret=app.config['REDDIT_SECRET'],
                             username=app.config['REDDIT_USERNAME'],
                             password=app.config['REDDIT_PASSWORD'], )
                             
+
+if app.task_queue.count == 0:
+    job = app.task_queue.enqueue(f=poll_reddit, args=(['testingground4bots'],praw_config), job_timeout=-1)
+else:
+    print('Background task already running')
+    
+@app.route('/')
+def index_client():
+    
+        
+    dist_dir = current_app.config['DIST_DIR']
+    entry = os.path.join(dist_dir, 'index.html')
+    return send_file(entry)
+
+
 @app.route('/test')
 def f():
     if app.task_queue.count == 0:

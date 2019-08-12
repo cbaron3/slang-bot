@@ -39,17 +39,9 @@ def poll_reddit( sub_list, config ):
     poll_subreddits = reddit.subreddit( 'testingground4bots' )
     while True:
         print('Polling for keyphrase {}'.format( keyphrase ) )
+        dots = '.'
         for comment in poll_subreddits.stream.comments():
             if keyphrase in comment.body:
-                # IMPROVE: Consolidate prints into one formatted print
-                print(comment.body)
-                print(comment.created_utc)
-                print(comment.author)
-                print(comment.subreddit)
-                print(comment.link_id)
-                # TODO: Log this data to a database. Then in home route, add another worker task
-                # to check the database every so often
-
                 # Extract term by replacing keyphrase from comment body and striping whitespace
                 term = comment.body.replace( keyphrase, '' )
                 term.strip()
@@ -63,24 +55,31 @@ def poll_reddit( sub_list, config ):
                     
                     try:
                         comment.reply( "Slang Bot defines " + title + " as : \n" + meaning )
+
                         req = Request(
                             user=comment.author.name,
-                            created_time="Now",
-                            received_time="Later",
-                            subreddit=comment.subreddit.name,
-                            url=comment.submission.url,
-                            word=title,
-                            meaning="asdf",
-                            example="rly"
+                            subreddit=comment.permalink.split('/')[2],
+                            url='https://reddit.com' + comment.permalink,
+                            word=title
                         )
 
                         db.session.add(req)
                         db.session.commit()
                         print("Request added. req id={}".format(req.id))
                     except Exception as e:
-                        print('as')
-                        # exc_type, exc_obj, exc_tb = sys.exc_info()
-                        # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-                        # print(exc_type, fname, exc_tb.tb_lineno)
-            print('Polling')
+                        print(str(e))
+                print('Polling' + dots)
+
+                if dots == '...':
+                    dots = '.'
+                else:
+                    dots += '.'
+                    
+            print('Polling' + dots)
+
+            if dots == '...':
+                dots = '.'
+            else:
+                dots += '.'
+
             time.sleep(1)
