@@ -7,7 +7,8 @@
         <hr>
         <br>
         <div class="intro">
-            <p>Subreddit bot</p>
+            <p>Frontend to view user requests for <a href='https://github.com/cbaron3/reddit-bot'>Slang Bot</a>, a Reddit Bot that translates slang using Urban Dictionary</p>
+            <p>Currently only works on subreddit <a href='https://www.reddit.com/r/testingground4bots/'>testingground4bots</a></p>
         </div>
         <br>
         <hr>
