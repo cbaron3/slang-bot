@@ -7,6 +7,14 @@ from redis import Redis
 import rq
 from flask_sqlalchemy import SQLAlchemy
 
+from dotenv import load_dotenv
+load_dotenv()
+
+# OR, explicitly providing path to '.env'
+from pathlib import Path  # python3 only
+env_path = Path('..') / '.env'
+load_dotenv(dotenv_path=env_path)
+
 app = Flask(__name__, static_folder='../dist/static')
 
 from flask import Blueprint, current_app
