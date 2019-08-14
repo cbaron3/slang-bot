@@ -1,7 +1,15 @@
 import os
+from flask import Blueprint
+
+client_bp = Blueprint('client_app', __name__,
+                      url_prefix='',
+                      static_url_path='',
+                      static_folder='./dist/static/',
+                      template_folder='./dist/',
+                      )
+
 from flask import Flask, current_app, send_file
 
-from .client import client_bp
 from flask_cors import CORS
 from redis import Redis
 import rq
@@ -49,5 +57,17 @@ db = SQLAlchemy(app)
 
 
 
+from app.tasks import poll_reddit
+from app.config import PRAWConfig
 
-from app import routes
+praw_config = PRAWConfig( user_agent=app.config['REDDIT_USER_AGENT'], 
+                            client_id=app.config['REDDIT_CLIENT_ID'], 
+                            secret=app.config['REDDIT_SECRET'],
+                            username=app.config['REDDIT_USERNAME'],
+                            password=app.config['REDDIT_PASSWORD'], )
+                            
+
+if app.task_queue.count == 0:
+    job = app.task_queue.enqueue(f=poll_reddit, args=(['testingground4bots'],praw_config), job_timeout=-1)
+else:
+    print('Background task already running')

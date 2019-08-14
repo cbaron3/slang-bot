@@ -11,6 +11,14 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 if 'HEROKU' not in os.environ:
     from api_secret import *
 
+class PRAWConfig:
+    def __init__(self, user_agent, client_id, secret, username, password):
+      self.user_agent = user_agent
+      self.client_id = client_id
+      self.secret = secret
+      self.username = username
+      self.password = password
+      
 class Config(object):
     # If not set fall back to production for safety
     FLASK_ENV =  os.getenv('FLASK_ENV', 'production')

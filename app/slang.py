@@ -2,6 +2,7 @@
 
 import requests
 from bs4 import BeautifulSoup
+from app.config import PRAWConfig
 
 URBANDICT_URL_DEFINE = 'https://www.urbandictionary.com/define.php?term='
 def build_url( term : str):

@@ -8,17 +8,10 @@ from flask import jsonify
 
 from app import db
 from app.models import Request
+from app.slang import define 
+from app.config import PRAWConfig
 
-from app.scraper.urbandict import define 
 
-
-class PRAWConfig:
-    def __init__(self, user_agent, client_id, secret, username, password):
-      self.user_agent = user_agent
-      self.client_id = client_id
-      self.secret = secret
-      self.username = username
-      self.password = password
 
 def poll_reddit( sub_list, config ):
     """ Pass in a list of subreddit names to poll for the keyphrase !slangbot"""

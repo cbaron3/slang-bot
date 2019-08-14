@@ -34,18 +34,18 @@ class Request(db.Model):
             'url': self.url
         }
 
-    @api_rest.route('/tabletest/<string:resource_id>')
-    class Test(Resource):
-        def get(self, resource_id):
-            try:
-                requests=Request.query.all()
-                results = []
-                for e in requests:
-                    results.append(e.serialize())
-                return jsonify({
-                    'status': 'success',
-                    'books': results
-                })
-            except Exception as e:
-                print(str(e))
-                return(str(e))
+@api_rest.route('/tabletest/<string:resource_id>')
+class Test(Resource):
+    def get(self, resource_id):
+        try:
+            requests=Request.query.all()
+            results = []
+            for e in requests:
+                results.append(e.serialize())
+            return jsonify({
+                'status': 'success',
+                'books': results
+            })
+        except Exception as e:
+            print(str(e))
+            return(str(e))
