@@ -1,16 +1,14 @@
 from app import db, api_rest
 from flask_restplus import Resource
 from flask import jsonify
-# Database will store bot requests
-# user, time, created, subreddit, link_id or url, body, meaning, example
-# Could improve this by having a request store a reddit key and a urban dictionary key
-# think that would be good for the future
+
 class Request(db.Model):
+    # Define table name
     __tablename__ = 'requests'
 
     # Primary key
     id = db.Column(db.Integer, primary_key=True)
-    # Columns for the table. Gunna store everything as strings for simplicity
+    # Columns for the table. Stored as strings for simplicity
     user = db.Column(db.String())
     subreddit = db.Column(db.String())
     url = db.Column(db.String())
@@ -35,7 +33,7 @@ class Request(db.Model):
         }
 
 @api_rest.route('/tabletest/<string:resource_id>')
-class Test(Resource):
+class AllDBEntries(Resource):
     def get(self, resource_id):
         try:
             requests=Request.query.all()
