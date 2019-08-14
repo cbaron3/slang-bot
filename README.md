@@ -1,79 +1,44 @@
-# Flask-VueJs-Template 🌶️✌
+<h1 align="center"> Slang Bot </h1> <br>
+<p align="center">
+  <a href="https://gitpoint.co/">
+    <img alt="GitPoint" title="GitPoint" src="https://www.joeyoungblood.com/wp-content/uploads/2018/05/reddit-logo-alienhead.png" width="450">
+  </a>
+</p>
 
-[![Build Status](https://travis-ci.org/gtalarico/flask-vuejs-template.svg?branch=master)](https://travis-ci.org/gtalarico/flask-vuejs-template)
-[![codecov](https://codecov.io/gh/gtalarico/flask-vuejs-template/branch/master/graph/badge.svg)](https://codecov.io/gh/gtalarico/flask-vuejs-template)
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
 
-_Flask + Vue.js Web Application Template_
+- [Introduction](#introduction)
+- [Features](#features)
+- [Usage](#usage)
+- [Feedback](#feedback)
+- [Build Process](#build-process)
 
-![Vue Logo](/docs/vue-logo.png "Vue Logo") ![Flask Logo](/docs/flask-logo.png "Flask Logo")
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## Introduction
+
+Slang Bot is a Reddit bot that will define slang terms using Urban Dictionary. The bot also has a frontend to view all the requests that have been made.
+
+## Usage
+
+Bot requests can be on Reddit using the command `!slangbot <term>`. The bot will take approximately 1 minute to respond with the slang definition for your term. Currently the bot is only active and live on https://reddit.com/r/testingground4bots
+
+An overview of the requests that have been made can be viewed at: https://hello-world-cbaron3.herokuapp.com/#/
 
 ## Features
-* Minimal Flask 1.0 App
-* [Flask-RestPlus](http://flask-restplus.readthedocs.io) API with class-based secure resource routing
-* Starter [PyTest](http://pytest.org) test suite
-* [vue-cli 3](https://github.com/vuejs/vue-cli/blob/dev/docs/README.md) + yarn
-* [Vuex](https://vuex.vuejs.org/)
-* [Vue Router](https://router.vuejs.org/)
-* [Axios](https://vuex.vuejs.org/) for backend communication
-* Sample Vue [Filters](https://vuejs.org/v2/guide/filters.html)
-* Heroku Configuration with one-click deployment + Gunicorn
 
-## Demo
-[Live Demo](https://flask-vuejs-template.herokuapp.com/#/api)
+* Python Flask
+* Vue.js
+* Axios
+* PSQL
 
-## Alternatives
+## Feedback
 
-If this setup is not what you are looking for, here are some similar projects:
+Please feel free to send feedback by creating [an issue](https://github.com/gitpoint/git-point/issues/new). Feature requests are always welcome.
 
-* [oleg-agapov/flask-vue-spa](https://github.com/oleg-agapov/flask-vue-spa)
-* [testdrivenio/flask-vue-crud](https://github.com/testdrivenio/flask-vue-crud)
-
-#### Old Template
-
-This template was updated to use a flatter folder structure and use yarn instead of npm.
-You can now run `yarn serve` as well as other yarn commands from the template root directory.
-The old template will be kept in the [npm-template branch](https://github.com/gtalarico/flask-vuejs-template/tree/npm-template) but will not be maintained. 
-
-#### Django
-
-Prefer Django? Checkout the [gtalarico/django-vue-template](https://github.com/gtalarico/django-vue-template)
-
-## Template Structure
-
-The template uses Flask & Flask-RestPlus to create a minimal REST style API,
-and let's VueJs + vue-cli handle the front end and asset pipline.
-Data from the python server to the Vue application is passed by making Ajax requests.
-
-### Application Structure
-
-#### Rest Api
-
-The Api is served using a Flask blueprint at `/api/` using Flask RestPlus class-based
-resource routing.
-
-#### Client Application
-
-A Flask view is used to serve the `index.html` as an entry point into the Vue app at the endpoint `/`.
-
-The template uses vue-cli 3 and assumes Vue Cli & Webpack will manage front-end resources and assets, so it does overwrite template delimiter.
-
-The Vue instance is preconfigured with Filters, Vue-Router, Vuex; each of these can easilly removed if they are not desired.
-
-#### Important Files
-
-| Location             |  Content                                   |
-|----------------------|--------------------------------------------|
-| `/app`               | Flask Application                          |
-| `/app/api`           | Flask Rest Api (`/api`)                    |
-| `/app/client.py`     | Flask Client (`/`)                         |
-| `/src`               | Vue App .                                  |
-| `/src/main.js`       | JS Application Entry Point                 |
-| `/public/index.html` | Html Application Entry Point (`/`)         |
-| `/public/static`     | Static Assets                              |
-| `/dist/`             | Bundled Assets Output (generated at `yarn build` |
-
-
-## Installation
+## Build Process
 
 ##### Before you start
 
@@ -85,12 +50,20 @@ Before getting started, you should have the following installed and running:
 - [X] Pipenv (optional)
 - [X] Heroku Cli (if deploying to Heroku)
 
+**Development Keys**: To run the project locally, you will need a couple keys for development. For using the database, `DATABASE_URL` must be defined. For PRAW (Reddit API) to work properly, it needs `reddit_client_id`, `reddit_secret`, `reddit_user_agent`, `reddit_username`, and `reddit_password` which can be taken from https://www.reddit.com/prefs/apps. Put all the PRAW keys in a file named api_secrets.py in the project's base directory.
+
+##### Database Setup
+
+`python3 manage.py db init`
+`python3 manage.py db migrate`
+`python3 manage.py db upgrade`
+
 ##### Template and Dependencies
 
 * Clone this repository:
 
 	```
-	$ git clone https://github.com/gtalarico/flask-vuejs-template.git
+	$ git clone https://github.com/cbaron3/reddit-bot.git
 	```
 
 * Setup virtual environment, install dependencies, and activate it:
@@ -113,6 +86,7 @@ Run Flask Api development server:
 
 ```
 $ python run.py
+$ rq worker reddit-tasks
 ```
 
 From another tab in the same directory, start the webpack dev server:
@@ -138,7 +112,6 @@ and the page will not reload on changes.
 $ yarn build
 $ python run.py
 ```
-
 
 ## Production Server
 
@@ -166,10 +139,9 @@ Here are the commands we need to run to get things setup on the Heroku side:
 	$ heroku buildpacks:add --index 2 heroku/python
 	$ heroku config:set FLASK_ENV=production
 	$ heroku config:set FLASK_SECRET=SuperSecretKey
+	$ heroku addons:create redistogo
 
-	$ git push heroku
+	$ git push heroku master
+	$ heroku scale worker=1
 	```
-
-### Heroku deployment - One Click Deploy
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/gtalarico/flask-vuejs-template)
+	
