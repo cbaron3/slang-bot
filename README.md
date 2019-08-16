@@ -25,7 +25,7 @@ Slang Bot is a Reddit bot that will define slang terms using Urban Dictionary. T
 
 Bot requests can be on Reddit using the command `!slangbot <term>`. The bot will take approximately 1 minute to respond with the slang definition for your term. Currently the bot is only active and live on https://reddit.com/r/testingground4bots
 
-An overview of the requests that have been made can be viewed at: https://hello-world-cbaron3.herokuapp.com/#/
+An overview of the requests that have been made can be viewed at: https://slang-bot.herokuapp.com/#/
 
 ## Features
 
