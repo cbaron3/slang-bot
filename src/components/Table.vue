@@ -7,13 +7,14 @@
         <hr>
         <br>
         <div class="intro">
-            <p>Frontend to view user requests for <a href='https://github.com/cbaron3/reddit-bot'>Slang Bot</a>, a Reddit Bot that translates slang using Urban Dictionary</p>
-            <p>Currently only works on subreddit <a href='https://www.reddit.com/r/testingground4bots/'>testingground4bots</a></p>
+            <p>This web page can be used to view the requests made by users for <a href='https://github.com/cbaron3/reddit-bot'>Slang Bot</a>, a Reddit Bot that translates slang using Urban Dictionary.</p>
+            <br>
+            <p>Currently, this bot is active on <a href='https://www.reddit.com/r/testingground4bots/'>/r/testingground4bots</a> for demonstration purposes.</p>
         </div>
         <br>
         <hr>
         <br>
-        <table class="table table-hover table-borderless">
+        <table class="table table-hover ">
           <thead>
             <tr>
               <th scope="col">User</th>
@@ -24,11 +25,11 @@
           </thead>
           <tbody>
             <tr>
-              <tr v-for="(book, index) in resources" :key="index">
-                <td>{{ book.user }}</td>
-                <td>{{ book.subreddit }}</td>
-                <td>{{ book.word }}</td>
-                <td><a v-bind:href="''">{{ book.url }}</a></td>
+              <tr v-for="(request, index) in resources" :key="index">
+                <td>{{ request.user }}</td>
+                <td>{{ request.subreddit }}</td>
+                <td>{{ request.word }}</td>
+                <td><a v-bind:href="request.url">{{ request.url }}</a></td>
             </tr>
           </tbody>
         </table>
@@ -70,32 +71,32 @@ export default {
 </script>
 
 <style>
-body {
-background: #E0EAFC;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #CFDEF3, #E0EAFC);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #CFDEF3, #E0EAFC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
-}
-
-h1, p, th, td, hd {
-  color: #0074D9;
+div{
   font-family: 'Muli', sans-serif;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
 }
 
-th, td {
-  text-align: center;
+h1, table {
+  padding-top: 1em;
+  width: 100%;
 }
 
 h1 {
-  padding-top: 25px;
-  font-weight: 700;
-  font-size: 4em;
+  font-size: 4.2em;
 }
 
 p {
-  padding-top: 25px;
-  font-weight: 500;
-  font-size: 1em;
+  font-size: 1.375em;
+}
+
+th, td {
+  font-size: 1.2em;
 }
 
 </style>
