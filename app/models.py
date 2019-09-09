@@ -12,14 +12,17 @@ class Request(db.Model):
     user = db.Column(db.String())
     subreddit = db.Column(db.String())
     url = db.Column(db.String())
-    # Urban dictionary stuff
+    # Urban dictionary
     word = db.Column(db.String())
+    # Store time stamp
+    time = db.Column(db.String())
 
-    def __init__(self, user,subreddit, word, url):
+    def __init__(self, user,subreddit, word, url, time):
         self.user = user
         self.subreddit = subreddit
         self.word = word
         self.url = url
+        self.time = time
 
     def __repr__(self):
         return '<id> {}'.format(self.id)
@@ -29,7 +32,8 @@ class Request(db.Model):
             'user': self.user,
             'subreddit': self.subreddit,
             'word': self.word,
-            'url': self.url
+            'url': self.url,
+            'time': self.time
         }
 
 @api_rest.route('/tabletest/<string:resource_id>')
@@ -42,7 +46,7 @@ class AllDBEntries(Resource):
                 results.append(e.serialize())
             return jsonify({
                 'status': 'success',
-                'books': results
+                'requests': results
             })
         except Exception as e:
             print(str(e))

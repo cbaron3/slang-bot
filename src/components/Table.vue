@@ -20,6 +20,7 @@
               <th scope="col">User</th>
               <th scope="col">Subreddit</th>
               <th scope="col">Word</th>
+              <th scope="col">Time (UTC)</th>
               <th scope="col">URL</th>
             </tr>
           </thead>
@@ -29,6 +30,7 @@
                 <td>{{ request.user }}</td>
                 <td>{{ request.subreddit }}</td>
                 <td>{{ request.word }}</td>
+                <td>{{ request.time }}</td>
                 <td><a v-bind:href="request.url">{{ request.url }}</a></td>
             </tr>
           </tbody>
@@ -55,8 +57,7 @@ export default {
       $backend.fetchTableData()
         .then(responseData => {
           console.log(responseData)
-          this.resources = responseData.books
-          console.log('hes')
+          this.resources = responseData.requests
           console.log(this.resources)
         }).catch(error => {
           this.error = error.message

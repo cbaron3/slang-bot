@@ -53,7 +53,9 @@ def poll_reddit( sub_list, config ):
                             user=comment.author.name,
                             subreddit=comment.permalink.split('/')[2],
                             url='https://reddit.com' + comment.permalink,
-                            word=title
+                            word=title,
+                            time=datetime.datetime.utcfromtimestamp(comment.created_utc).strftime('%Y-%m-%d %H:%M:%S')
+
                         )
 
                         db.session.add(req)
