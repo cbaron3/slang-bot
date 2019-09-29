@@ -56,5 +56,6 @@ praw_config = PRAWConfig( user_agent=app.config['REDDIT_USER_AGENT'],
                             
 if app.task_queue.count == 0:
     job = app.task_queue.enqueue(f=poll_reddit, args=(['testingground4bots'],praw_config), job_timeout=-1)
+    print('Enqueuing task')
 else:
     print('Background task already running')

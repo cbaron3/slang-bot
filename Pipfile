@@ -19,6 +19,7 @@ flask-script = "*"
 flask-migrate = "*"
 psycopg2-binary = "*"
 flask-cors = "*"
+dotenv = "*"
 
 [dev-packages]
 pytest = "*"

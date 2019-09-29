@@ -2,7 +2,7 @@
 {
   "name": "Slang Bot",
   "description": "This web app shows recent requests on the !slangbot reddit bot",
-  "repository": "https://github.com/cbaron3/reddit-bot",
+  "repository": "https://github.com/cbaron3/reddit=slang-bot",
   "keywords": ["reddit", "vue", "bot"],
   "env": {
     "FLASK_ENV": {

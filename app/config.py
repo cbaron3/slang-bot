@@ -45,3 +45,4 @@ class Config(object):
     # Database work
     SECRET_KEY = 'this-really-needs-to-be-changed'
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+    print(SQLALCHEMY_DATABASE_URI)
