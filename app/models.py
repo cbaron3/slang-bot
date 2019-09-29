@@ -36,7 +36,7 @@ class Request(db.Model):
             'time': self.time
         }
 
-@api_rest.route('/tabletest/')
+@api_rest.route('/tabletest/<string:resource_id>')
 class AllDBEntries(Resource):
     def get(self, resource_id):
         try:

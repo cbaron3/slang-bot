@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 let $axios = axios.create({
-  baseURL: '/',
+  baseURL: '/api/',
   timeout: 5000,
   headers: {'Content-Type': 'application/json'}
 })
@@ -23,7 +23,7 @@ $axios.interceptors.response.use(function (response) {
 
 export default {
   fetchTableData () {
-    return $axios.get(`tabletest/`)
+    return $axios.get(`tabletest/zzz`)
       .then(response => response.data)
   }
 }
