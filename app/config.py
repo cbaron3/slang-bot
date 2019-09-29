@@ -19,6 +19,7 @@ class Config(object):
     SECRET_KEY = os.getenv('FLASK_SECRET', 'Secret')
 
     # Directory formatting
+    # Debug
     APP_DIR = os.path.dirname(__file__)
     ROOT_DIR = os.path.dirname(APP_DIR)
     DIST_DIR = os.path.join(ROOT_DIR, 'dist')

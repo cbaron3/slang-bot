@@ -144,4 +144,3 @@ Here are the commands we need to run to get things setup on the Heroku side:
 	$ git push heroku master
 	$ heroku scale worker=1
 	```
-	
