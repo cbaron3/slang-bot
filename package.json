@@ -10,7 +10,7 @@
     "start": "yarn serve"
   },
   "dependencies": {
-    "axios": "0.18.1",
+    "axios": "0.21.1",
     "bootstrap": "4.3.1",
     "vue": "^2.5.13",
     "vue-router": "^3.0.1",
